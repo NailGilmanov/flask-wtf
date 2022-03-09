@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="position-absolute top-0 start-50 translate-middle">
+        {% if engineer_profs %}
+            <h1 class="text-center">Инженерные тренажеры</h1>
+            <img src="https://sun9-22.userapi.com/impg/wRWx5BkkMJEcEleKohQQIPeoVj7bzue_qtGkOg/4YV8HCYHTiM.jpg?size=855x638&quality=96&sign=610dc5279efa8a387ec3c20770d6e53e&type=album" alt="Инженерные тренажеры">
+        {% else %}
+            <h1 class="text-center">Научные симуляторы</h1>
+            <img src="https://sun9-30.userapi.com/impg/Y5HYaYaBjLJ3CEq5vHFUjvetvqjgQ_E7d8VvZg/hY99rYFF03g.jpg?size=856x633&quality=96&sign=63ddc4240b91da3e3690cc3fff5d84ba&type=album" alt="Научные симуляторы">
+        {% endif %}
+    </div>
+{% endblock %}

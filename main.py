@@ -15,6 +15,14 @@ def index1(title):
     return render_template('base.html', title=title)
 
 
+@app.route('/training/<string:prof>')
+def training(prof):
+    engineer_profs = False
+    if prof in ['инженер', 'строитель']:
+        engineer_profs = True
+    return render_template('training.html', engineer_profs=engineer_profs)
+
+
 def main():
     app.run()
 
