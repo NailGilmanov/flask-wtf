@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="position-absolute top-0 start-50 translate-middle">
+        <h2 class="text-center">Список профессий</h2>
+        {% if type == 'ol' %}
+            <ol>
+                {% for prof in profs %}
+                    <li>{{ prof }}</li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <ul>
+                {% for prof in profs %}
+                    <li>{{ prof }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}
