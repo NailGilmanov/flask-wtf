@@ -11,7 +11,10 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 @app.route('/')
 def index():
-    return render_template('base.html')
+    db_sess = db_session.create_session()
+    jobs = db_sess.query(Jobs)
+
+    return render_template("index.html", jobs=jobs)
 
 
 @app.route('/index/<string:title>')
@@ -69,17 +72,25 @@ def auto_answer():
 
 def main():
     db_session.global_init("db/mars_explorer.db")
-    job = Jobs()
-    job.team_leader = 1
-    job.job = 'deployment of residential modules 1 and 2'
-    job.work_size = 15
-    job.collaborators = '2, 3'
-    job.is_finished = False
-
-    db_sess = db_session.create_session()
-    db_sess.add(job)
-    db_sess.commit()
-    # app.run()
+    # job1 = Jobs()
+    # job1.team_leader = 1
+    # job1.job = 'Exploration of mineral resources'
+    # job1.work_size = 25
+    # job1.collaborators = '4, 3'
+    # job1.is_finished = False
+    #
+    # job2 = Jobs()
+    # job2.team_leader = 2
+    # job2.job = 'Development of a management system'
+    # job2.work_size = 10
+    # job2.collaborators = '2'
+    # job2.is_finished = True
+    #
+    # db_sess = db_session.create_session()
+    # db_sess.add(job1)
+    # db_sess.add(job2)
+    # db_sess.commit()
+    app.run()
 
 
 if __name__ == '__main__':
