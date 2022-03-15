@@ -1,4 +1,7 @@
 from flask import Flask, render_template
+from data import db_session
+
+from data.users import User
 
 
 app = Flask(__name__)
@@ -64,7 +67,50 @@ def auto_answer():
 
 
 def main():
-    app.run()
+    db_session.global_init("db/mars_explorer.db")
+    user1 = User()
+    user1.name = 'Ridley'
+    user1.surname = "Scott"
+    user1.age = 21
+    user1.position = 'captain'
+    user1.speciality = 'research engineer'
+    user1.address = 'module_1'
+    user1.email = 'scott_chief@mars.org'
+
+    user2 = User()
+    user2.name = 'Mike'
+    user2.surname = "Miller"
+    user2.age = 35
+    user2.position = 'trainee'
+    user2.speciality = 'engineer'
+    user2.address = 'module_2'
+    user2.email = 'mike_miller@mars.org'
+
+    user3 = User()
+    user3.name = 'Johnny'
+    user3.surname = "Jouster"
+    user3.age = 25
+    user3.position = 'trainee'
+    user3.speciality = 'pilot'
+    user3.address = 'module_1'
+    user3.email = 'jojo@mars.org'
+
+    user4 = User()
+    user4.name = 'Giordano'
+    user4.surname = "Giovanna"
+    user4.age = 20
+    user4.position = 'trainee'
+    user4.speciality = 'pilot'
+    user4.address = 'module_3'
+    user4.email = 'golden_wind@mars.org'
+
+    db_sess = db_session.create_session()
+    db_sess.add(user1)
+    db_sess.add(user2)
+    db_sess.add(user3)
+    db_sess.add(user4)
+    db_sess.commit()
+    # app.run()
 
 
 if __name__ == '__main__':
