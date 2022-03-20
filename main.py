@@ -5,6 +5,8 @@ from forms.user import LoginForm, RegisterForm
 from data.users import User
 from data.jobs import Jobs
 
+from forms.jobs import JobsForm
+
 from flask_login import LoginManager, login_user, login_required, logout_user
 
 app = Flask(__name__)
@@ -76,6 +78,24 @@ def login():
 def logout():
     logout_user()
     return redirect("/")
+
+
+@app.route('/addjob', methods=['GET', 'POST'])
+def jobs():
+    form = JobsForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        job = Jobs(
+            job=form.job.data,
+            team_leader=form.leader_id.data,
+            work_size=form.work_size.data,
+            collaborators=form.collaborators.data,
+            is_finished=form.is_finished.data
+        )
+        db_sess.add(job)
+        db_sess.commit()
+        return redirect('/')
+    return render_template('jobs.html', title='Добавление работы', form=form)
 
 
 @app.route("/cookie_test")

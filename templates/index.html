@@ -32,6 +32,8 @@
         </table>
     </div>
 </div>
-
 {% endfor %}
+{% if current_user.is_authenticated %}
+      <br><a href="addjob" class="btn btn-secondary">Добавить работу</a>
+{% endif %}
 {% endblock %}
