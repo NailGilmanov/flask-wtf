@@ -1,11 +1,14 @@
 import datetime
 import sqlalchemy
+
+from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import orm
+from flask_login import UserMixin
 
 from .db_session import SqlAlchemyBase
 
 
-class User(SqlAlchemyBase):
+class User(SqlAlchemyBase, UserMixin):
     __tablename__ = 'users'
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
@@ -22,3 +25,11 @@ class User(SqlAlchemyBase):
                                       default=datetime.datetime.now)
 
     jobs = orm.relation("Jobs", back_populates='user')
+
+    # устанавливает значение хэша пароля для переданной строки, нужна для регистрации пользователя
+    def set_password(self, password):
+        self.hashed_password = generate_password_hash(password)
+
+    # проверяет, правильный ли пароль ввел пользователь, нужна для авторизации пользователей в нашем приложении.
+    def check_password(self, password):
+        return check_password_hash(self.hashed_password, password)
